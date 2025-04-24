@@ -1,3 +1,21 @@
+document.addEventListener("DOMContentLoaded", function() {
+    const images = document.querySelectorAll('.lazy-image');
+
+    images.forEach(img => {
+        img.style.display = 'none'; // verberg standaard de afbeelding
+
+        img.addEventListener('load', () => {
+            const skeleton = img.previousElementSibling;
+            if (skeleton && skeleton.classList.contains('skeleton')) {
+                skeleton.style.display = 'none';
+            }
+            img.style.display = 'block'; // toon de afbeelding als hij geladen is
+        });
+    });
+});
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.getElementById('hamburger-button');
     const menu = document.getElementById('menu');
@@ -15,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
 
 document.addEventListener("DOMContentLoaded", function () {
     const likeButtons = document.querySelectorAll(".post-like button svg");
