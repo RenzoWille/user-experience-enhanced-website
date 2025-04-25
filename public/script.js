@@ -33,20 +33,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
-document.addEventListener("DOMContentLoaded", function () {
-    const likeButtons = document.querySelectorAll(".post-like button svg");
-
-    likeButtons.forEach(svg => {
-        svg.addEventListener("click", function (event) {
-
-            if (this.getAttribute("fill") === "red") {
-                this.setAttribute("fill", "none");
-                this.setAttribute("stroke", "red");
-            } else {
-                this.setAttribute("fill", "red");
-                this.setAttribute("stroke", "red");
-            }
-        });
-    });
-});

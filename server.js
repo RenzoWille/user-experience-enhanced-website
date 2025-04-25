@@ -46,17 +46,18 @@ app.get('/details/:id', async function (request, response) {
   // Plus uit een andere tabel halen of het artwork een like heeft!
 
   const artworkURL = `https://fdnd-agency.directus.app/items/fabrique_art_objects?filter[id][_eq]=${request.params.id}&fields=*,fabrique_users_fabrique_art_objects.*`;
-
-
   const artworkFetch = await fetch(artworkURL)
-
-
   const artworkJSON = await artworkFetch.json()
 
-  console.log(artworkJSON)
+  const likedArtworks = `https://fdnd-agency.directus.app/items/fabrique_users_fabrique_art_objects?filter={"fabrique_users_id":3}`
+  const likedArtworksFetch = await fetch(likedArtworks)
+  const likedArtworksJSON = await likedArtworksFetch.json()
+
+  console.log(artworkJSON.data)
 
   response.render('details.liquid', {
-    artworkData: artworkJSON.data 
+    artworkData: artworkJSON.data,
+    likedArtworks: likedArtworksJSON.data
   })
 })
 
@@ -79,7 +80,7 @@ app.post('/like-artwork/:id', async function (request, response) {
   // Const artworkURL = `https://fdnd-agency.directus.app/items/fabrique_users_fabrique_art_objects?filter=%7B%22fabrique_users_id%22:1%7D`
   // Const artworkLikes = `https://fdnd-agency.directus.app/items/fabrique_users_fabrique_art_objects?filter={"fabrique_users_id":1,"fabrique_art_objects_id":[id][_eq]=${request.params.id}`
   const postLikeUrl = `https://fdnd-agency.directus.app/items/fabrique_users_fabrique_art_objects?filter={"fabrique_users_id":1,"fabrique_art_objects_id":[id][_eq]=${request.params.id}`
-  console.log("postLikeUrl " + postLikeUrl)
+//   console.log("postLikeUrl " + postLikeUrl)
 
   // Post naar database
   await fetch(postLikeUrl,{
@@ -96,7 +97,7 @@ app.post('/like-artwork/:id', async function (request, response) {
       fabrique_art_objects_id: request.params.id
     }),
   })
-  console.log("POST is gedaan  ")
+//   console.log("POST is gedaan  ")
 
   response.redirect(303, '/details/'+request.params.id)
 })
