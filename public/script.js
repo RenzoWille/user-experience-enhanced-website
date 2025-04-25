@@ -1,19 +1,28 @@
 document.addEventListener("DOMContentLoaded", function() {
     const images = document.querySelectorAll('.lazy-image');
-
+ 
     images.forEach(img => {
-        img.style.display = 'none'; // verberg standaard de afbeelding
+        const skeleton = img.previousElementSibling;
+        const showImage = () => {
 
-        img.addEventListener('load', () => {
-            const skeleton = img.previousElementSibling;
             if (skeleton && skeleton.classList.contains('skeleton')) {
                 skeleton.style.display = 'none';
             }
-            img.style.display = 'block'; // toon de afbeelding als hij geladen is
-        });
+
+            img.style.display = 'block';
+        };
+
+        img.style.display = 'none';
+        if (img.complete) { 
+            
+            // If the image has already loaded
+            showImage();
+        } else {
+            // If not, wait for the load event
+            img.addEventListener('load', showImage);
+        }
     });
 });
-
 
 
 document.addEventListener('DOMContentLoaded', () => {
