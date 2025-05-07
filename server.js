@@ -39,7 +39,7 @@ app.get('/', async function (request, response) {
 })
 
 app.get('/details/:id', async function (request, response) {
-  console.log("GET detail pagina met een id "+request.params.id)
+  // console.log("GET detail pagina met een id "+request.params.id)
 
   // Const  de links naar de verschillende data
   // Hier moet je en fetch doen die de data van het artwork ophaalt
@@ -53,7 +53,7 @@ app.get('/details/:id', async function (request, response) {
   const likedArtworksFetch = await fetch(likedArtworks)
   const likedArtworksJSON = await likedArtworksFetch.json()
 
-  console.log(artworkJSON.data)
+  // console.log(artworkJSON.data)
 
   response.render('details.liquid', {
     artworkData: artworkJSON.data,
@@ -74,7 +74,7 @@ app.get('/art', async function (req, res) {
 // POST
 // Deze post is voor het liken van een artwork
 app.post('/like-artwork/:id', async function (request, response) {
-  console.log("we hebben een post " + request.params.id)
+  // console.log("we hebben een post " + request.params.id)
 
   // Hier wil je een fetch naar Directus waarmee je een like oplsaat die hoort bij eeen artwork
   // Const artworkURL = `https://fdnd-agency.directus.app/items/fabrique_users_fabrique_art_objects?filter=%7B%22fabrique_users_id%22:1%7D`
@@ -101,6 +101,24 @@ app.post('/like-artwork/:id', async function (request, response) {
 
   response.redirect(303, '/details/'+request.params.id)
 })
+
+// DELETE function to unlike
+
+app.post('/unlike-artwork/:id', async function (request, response) {
+  const postLikeUrl = (`https://fdnd-agency.directus.app/items/fabrique_users_fabrique_art_objects_unliked?filter={"fabrique_users_id":1,"fabrique_art_objects_id":[id][_eq]=${request.params.id}`)
+    console.log("postlikeURL" + postLikeUrl)
+  
+  const postlikeUrlJSON = await postLikeUrl.json()
+  
+  const postLikeUrlID = postLikeUrl.data[0].id
+  
+  await fetch(postLikeUrl, {
+    method: 'DELETE'
+  });
+
+  response.redirect(303, '/details/'+request.params.id)
+})
+
 
 // Stel het poortnummer in waar Express op moet gaan luisteren
 // Lokaal is dit poort 8000; als deze applicatie ergens gehost wordt, waarschijnlijk poort 80
