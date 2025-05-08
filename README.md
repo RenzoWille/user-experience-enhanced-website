@@ -54,7 +54,10 @@ https://github.com/user-attachments/assets/26d41f0c-ef7d-4b0c-a4fc-da58665c0ca8
 <!-- Bij Kenmerken staat welke technieken zijn gebruikt en hoe. Wat is de HTML structuur? Wat zijn de belangrijkste dingen in CSS? Wat is er met JS gedaan en hoe? Misschien heb je iets met NodeJS gedaan, of heb je een framework of library gebruikt? -->
 
 De website is gebouwd met NodeJS, Express, Liquid en Directus voor server-side en HTML, CSS en JavaScript voor client-side scripting. Er is gebruik gemaakt van Progressive Enhancement, een techniek die ervoor zorgt dat de code altijd blijft werken, ook wanneer bezoeker vanaf een verouderde browser op het internet surfen, of bezoekers die JavaScript uit hebben staan in hun browser. Hiermee zorg je er dus voor dat de website altijd blijft werken. Ook is er voor gezorgd dat de pagina's een mooie view-transition hebben en dat de afbeeldingen na het klikken mooi in de volgende pagina schuiven.
-https://github.com/user-attachments/assets/eaa0f1b7-63a7-4539-bc49-f5de05e9d910
+
+https://github.com/user-attachments/assets/9b9ab2cc-cdd9-4d24-b703-1ff7135db2bc
+
+
 
 
 
