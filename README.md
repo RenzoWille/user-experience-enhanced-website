@@ -26,7 +26,7 @@ Dit project beschrijft de website van Qatar Museums, hiervoor is er een home en 
 ### Detail pagina
 <img width="1440" alt="Scherm­afbeelding 2025-04-02 om 10 17 18" src="https://github.com/user-attachments/assets/293d97d3-376d-4d97-8082-78b554102716" />
 
-https://the-web-is-for-everyone-interactive-d9vm.onrender.com/
+https://user-experience-enhanced-website-019t.onrender.com/
 <!-- Bij Beschrijving staat kort beschreven wat voor project het is en wat je hebt gemaakt -->
 <!-- Voeg een mooie poster visual of video toe 📸 -->
 <!-- Voeg een link toe naar GitHub Pages 🌐-->
