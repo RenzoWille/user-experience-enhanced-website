@@ -3,36 +3,30 @@ document.addEventListener("DOMContentLoaded", function() {
     const images = document.querySelectorAll('.lazy-image');
 
     images.forEach(img => {
-        console.log("Gevonden afbeelding:", img.src);
+        console.log("Afbeelding gevonden:", img.src);
 
-        // Zoek de skeleton loader: probeer direct ervoor, of in een wrapper
-        const skeleton = img.previousElementSibling;
+        // Zoek de skeleton loader binnen dezelfde wrapper
+        const skeleton = img.closest('.image-wrapper').querySelector('.skeleton');
 
         // Functie om de afbeelding te tonen en de skeleton te verbergen
         const showImage = () => {
             if (skeleton) {
-                console.log("Skeleton gevonden, verbergen...");
+                console.log("Skeleton gevonden en verborgen");
                 skeleton.style.display = 'none';
-            } else {
-                console.log("Geen skeleton gevonden voor afbeelding:", img.src);
             }
-
             img.style.display = 'block';
+            img.style.opacity = '1';
         };
-
-        // Verberg de afbeelding standaard
-        img.style.display = 'none';
 
         // Check of de afbeelding al compleet geladen is
         if (img.complete && img.naturalHeight !== 0) { 
             console.log("Afbeelding is al geladen:", img.src);
             showImage();
         } else {
-            // Zo niet, wacht op de load event
             console.log("Wacht op het laden van de afbeelding:", img.src);
             img.addEventListener('load', showImage);
-            
-            // Voeg een fallback toe als het laden mislukt (bijvoorbeeld bij een kapotte URL)
+
+            // Voeg een fallback toe als het laden mislukt
             img.addEventListener('error', () => {
                 console.error("Afbeelding kon niet worden geladen:", img.src);
                 if (skeleton) {
