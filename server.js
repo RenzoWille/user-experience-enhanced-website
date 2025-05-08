@@ -104,20 +104,45 @@ app.post('/like-artwork/:id', async function (request, response) {
 
 // DELETE function to unlike
 
-app.post('/unlike-artwork/:id', async function (request, response) {
-  const postLikeUrl = (`https://fdnd-agency.directus.app/items/fabrique_users_fabrique_art_objects_unliked?filter={"fabrique_users_id":1,"fabrique_art_objects_id":[id][_eq]=${request.params.id}`)
-    console.log("postlikeURL" + postLikeUrl)
+// app.post('/unlike-artwork/:id', async function (request, response) {
+//   const postLikeUrl = (`https://fdnd-agency.directus.app/items/fabrique_users_fabrique_art_objects_unliked?filter={"fabrique_users_id":1,"fabrique_art_objects_id":[id][_eq]=${request.params.id}`)
+//     console.log("postlikeURL" + postLikeUrl)
   
-  const postlikeUrlJSON = await postLikeUrl.json()
+//   const postlikeUrlJSON = await postLikeUrl.json()
   
-  const postLikeUrlID = postLikeUrl.data[0].id
+//   const postLikeUrlID = postLikeUrl.data[0].id
   
-  await fetch(postLikeUrl, {
-    method: 'DELETE'
-  });
+//   await fetch(postLikeUrl, {
+//     method: 'DELETE'
+//   });
 
-  response.redirect(303, '/details/'+request.params.id)
-})
+//   response.redirect(303, '/details/'+request.params.id)
+// })
+
+
+// DELETE
+// UNLIKE een artwork
+app.post('/unlike-artwork/:id', async function (request, response) {
+  const deleteUrl = `https://fdnd-agency.directus.app/items/fabrique_users_fabrique_art_objects_unliked?filter={"fabrique_users_id":3,"fabrique_art_objects_id":${request.params.id}}`;
+
+  const data = await fetch(deleteUrl);
+  const result = await data.json();
+
+  console.log("Hier is een like verwijderd met id nummer " + request.params.id)
+  
+  if (result.data.length > 0) {
+    await fetch(`https://fdnd-agency.directus.app/items/fabrique_users_fabrique_art_objects_unliked/${result.data[0].id}`, {
+      method: 'DELETE',
+    });
+  }
+
+  // Redirect terug naar de detailpagina
+  response.redirect('/details/'+request.params.id);
+});
+
+
+
+
 
 
 // Stel het poortnummer in waar Express op moet gaan luisteren

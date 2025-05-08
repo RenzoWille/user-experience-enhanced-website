@@ -1,28 +1,49 @@
 document.addEventListener("DOMContentLoaded", function() {
+    // Zoek alle afbeeldingen met de class .lazy-image
     const images = document.querySelectorAll('.lazy-image');
- 
-    images.forEach(img => {
-        const skeleton = img.previousElementSibling;
-        const showImage = () => {
 
-            if (skeleton && skeleton.classList.contains('skeleton')) {
+    images.forEach(img => {
+        console.log("Gevonden afbeelding:", img.src);
+
+        // Zoek de skeleton loader: probeer direct ervoor, of in een wrapper
+        const skeleton = img.previousElementSibling;
+
+        // Functie om de afbeelding te tonen en de skeleton te verbergen
+        const showImage = () => {
+            if (skeleton) {
+                console.log("Skeleton gevonden, verbergen...");
                 skeleton.style.display = 'none';
+            } else {
+                console.log("Geen skeleton gevonden voor afbeelding:", img.src);
             }
 
             img.style.display = 'block';
         };
 
+        // Verberg de afbeelding standaard
         img.style.display = 'none';
-        if (img.complete) { 
-            
-            // If the image has already loaded
+
+        // Check of de afbeelding al compleet geladen is
+        if (img.complete && img.naturalHeight !== 0) { 
+            console.log("Afbeelding is al geladen:", img.src);
             showImage();
         } else {
-            // If not, wait for the load event
+            // Zo niet, wacht op de load event
+            console.log("Wacht op het laden van de afbeelding:", img.src);
             img.addEventListener('load', showImage);
+            
+            // Voeg een fallback toe als het laden mislukt (bijvoorbeeld bij een kapotte URL)
+            img.addEventListener('error', () => {
+                console.error("Afbeelding kon niet worden geladen:", img.src);
+                if (skeleton) {
+                    skeleton.style.display = 'none';
+                }
+            });
         }
     });
 });
+
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
