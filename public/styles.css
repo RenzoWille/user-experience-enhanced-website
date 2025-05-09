@@ -178,7 +178,6 @@ header {
 
     img {
         height: 300px;
-        border: 2px solid #ffffff;
         transition: transform 0.3s ease-in-out;
 
         ::view-transition-old(image) {
