@@ -123,21 +123,24 @@ app.post('/like-artwork/:id', async function (request, response) {
 // DELETE
 // UNLIKE een artwork
 app.post('/unlike-artwork/:id', async function (request, response) {
-  const deleteUrl = `https://fdnd-agency.directus.app/items/fabrique_users_fabrique_art_objects?filter={"fabrique_users_id":1,"fabrique_art_objects_id":[id][_eq]=${request.params.id}`;
+  const likedArtobject = await fetch(`https://fdnd-agency.directus.app/items/fabrique_users_fabrique_art_objects?filter={"fabrique_users_id":3,"fabrique_art_objects_id":${request.params.id}}`)
+  const likedArtobjectResponseJSON = await likedArtobject.json()
+  const likedArtobjectID = likedArtobjectResponseJSON.data[0].id
+  console.log(likedArtobjectID)
+
+  const deleteUrl = `https://fdnd-agency.directus.app/items/fabrique_users_fabrique_art_objects/${likedArtobjectID}`;
 
   const data = await fetch(deleteUrl);
   const result = await data.json();
 
   console.log("Hier is een like verwijderd met id nummer " + request.params.id)
   
-  if (result.data.length > 0) {
-    await fetch(deleteUrl, {
-      method: 'DELETE',
-    });
-  }
+  await fetch(deleteUrl, {
+    method: 'DELETE',
+  });
 
   // Redirect terug naar de detailpagina
-  response.redirect('/details/'+request.params.id);
+  response.redirect(303, '/details/' + request.params.id);
 });
 
 
