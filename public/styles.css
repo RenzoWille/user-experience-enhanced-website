@@ -233,19 +233,21 @@ header {
     z-index: 1;
 }
 
-/* Lazy-loaded afbeelding */
+/* Lazy-loaded afbeelding: onzichtbaar tot deze geladen is */
 .lazy-image {
     width: 100%;
     height: auto;
-    display: none; /* Verbergen tot deze geladen is */
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+    display: none; /* Verbergen totdat geladen */
+    opacity: 0;    /* Transparant tot fade-in */
+    transition: opacity 0.5s ease-in-out; /* Vloeiende overgang bij tonen */
 }
 
+/* Skeleton pulse-animatie: visueel effect voor laadstatus */
+/* De achtergrondkleur verandert subtiel in een loop om activiteit te suggereren */
 @keyframes pulse {
-    0% { background-color: rgba(200, 200, 200, 0.3); }
-    50% { background-color: rgba(200, 200, 200, 0.1); }
-    100% { background-color: rgba(200, 200, 200, 0.3); }
+    0%   { background-color: rgba(200, 200, 200, 0.3); } /* Start met een medium grijze tint */
+    50%  { background-color: rgba(200, 200, 200, 0.1); } /* Wordt tijdelijk lichter voor het 'pulse'-effect */
+    100% { background-color: rgba(200, 200, 200, 0.3); } /* Keert terug naar beginkleur om loop te herhalen */
 }
 
 
